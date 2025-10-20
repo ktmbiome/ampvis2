@@ -1007,6 +1007,7 @@ amp_ordinate <- function(data,
       list(
         plot = plot,
         screeplot = screeplot,
+        distmatrix = distmatrix,
         figcaption = captionwithrefs,
         model = model,
         dsites = dsites,
