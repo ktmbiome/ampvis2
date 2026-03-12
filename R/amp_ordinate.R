@@ -274,12 +274,6 @@ amp_ordinate <- function(data,
     stop("No speciesscores available with mMDS/PCoA", call. = FALSE)
   }
 
-  if (any(type == c("nmds", "mmds", "pcoa", "dca")) &
-    transform != "none" &
-    !is.null(distmeasure)) {
-    warning("Using both transformation AND a distance measure is not recommended for distance-based ordination (nMDS/PCoA). If this is not deliberate, consider transform = \"none\".", call. = FALSE)
-  }
-
   ##### Perform ordination  #####
   # Generate data depending on the chosen ordination type
   if (type == "pca") {
@@ -544,6 +538,9 @@ amp_ordinate <- function(data,
     )
   }
 
+  # biplots should be drawn on equally-scaled axes, i.e. with ratio = 1
+  plot <- plot + coord_fixed(ratio = 1)
+  
   ##### Colorframe  #####
   if (!sample_colorframe == FALSE) {
     if (is.null(sample_color_by) & sample_colorframe == TRUE) {

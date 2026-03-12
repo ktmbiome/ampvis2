@@ -6,7 +6,7 @@
 #' @param group_by (\emph{recommended}) Group the samples by a categorical variable in the metadata. If \code{NULL} then all samples are shown.
 #' @param facet_by Facet the samples by a categorical variable in the metadata.
 #' @param scale_by Scale the abundances by a variable in the metadata.
-#' @param normalise_by A variable or a specific sample in the metadata to normalise the counts by.
+#' @param normalise_by A specific group or sample to normalise the counts by. It must be a value found among the unique values present in the metadata variable supplied to \code{group_by}.
 #' @param tax_aggregate The taxonomic level to aggregate the OTUs. (\emph{default:} \code{"Phylum"})
 #' @param tax_add Additional taxonomic level(s) to display, e.g. \code{"Phylum"}. (\emph{default:} \code{"none"})
 #' @param tax_show The number of taxa to show, or a vector of taxa names. (\emph{default:} \code{10})
@@ -320,7 +320,7 @@ amp_heatmap <- function(data,
 
   ## Normalise to a specific group or sample (The Abundance of the group is set as 1)
   if (!is.null(normalise_by)) {
-    if (!normalise_by %chin% unique(abund7$.Group)) {
+    if (!normalise_by %chin% as.character(unique(abund7$.Group))) {
       stop(paste0(normalise_by, " is not found among group names, cannot normalise"), call. = FALSE)
     }
     setDT(abund7)
